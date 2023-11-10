@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="main.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>ICTWEB skills project</title>
+  </head>
+
+  <body>
+	<div class="container mx-auto"> 
+		<!-- add content here -->
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand" href="index.html"><img src="images/logo-small.png"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="login.html">Login/Register</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+            <div class="container features login">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 left">
+                     <div class="form-widget__inner">
+                        <form  id="loginForm" action="admin.html" method="post">
+                        <h2 class="feature-title">Log in</h2>	
+                        <div class="form-group">
+                            <label for="Email">Email address</label>
+                            <input type="email" class="form-control form-control-lg" id="Email" name="Email" placeholder="Enter email here" value="">
+                            <div class="invalid-feedback">
+                                A valid email address is required!
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="Enter password here" value="">
+                            <div class="invalid-feedback">
+                                <p>A valid password is required!<br>
+                                    At least one digit<br>
+                                    At least one lowercase letter<br>
+                                    At least one uppercase letter<br>
+                                    At least one special character (not a letter or a digit)<br>
+                                    No whitespace characters<br>
+                                    A minimum length of 8 characters and a maximum length of 15 characters<br></p>
+                            </div>		
+                        </div>	
+                        <button type="submit" name="submit" class="btn btn-primary loginButton">Log in</button>
+                        <div id="msg"></div>
+                       </form>
+                    </div> 
+                   </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 right">
+                      <div class="form-widget__inner">
+                        <h2 class="feature-title">Don't have an account?</h2>
+                        <p>Experience greater security and access to our library and other services with an user account.</p>
+                        <p>	If you're a library member, please log in on the left. Use your email and password.</p>
+                        <p>If you're not a library member, create an account.</p>
+                        <p><a href="#">Privacy</a></p>
+                        <a href="register.html"><button class="btn btn-primary">Create an account</button></a>
+                     </div>
+                    </div>
+                </div>
+            </div>
+            
+            <footer class="page-footer">
+                    <div class="container">
+                   <div class="row">
+                   <div class="col-lg-8 col-md-8 col-sm-12">
+                   <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+                   </div>
+                   <div class="col-lg-4 col-md-4 col-sm-12">
+                       <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                           <p>16 Thomas Street, Ultimo, 2007
+                           <br>info@mywebsite.com
+                           <br>+ 01 234 567 88
+                           <br>+ 01 234 567 89</p>
+                     </div>
+                    </div>
+                   </div>
+                   <div class="footer-copyright text-center">&copy; 2021 Copyright: MyWebsite.com</div>
+            </footer>           
+        </div>
+    <script>
+        const form=document.getElementById("loginForm");
+         var Email = document.getElementById("Email");
+         var password = document.getElementById("password");
+         const phpFileUrl="register.php";
+
+         function validateForm(event){
+              
+              var validity = true;
+              
+              var emailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+              var passwordregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/; 
+               
+              Email = document.getElementById("Email");
+              Email.classList.remove("is-invalid");			
+              if ( (Email.value == "") || !emailregex.test(Email.value) ) {
+                  Email.classList.add("is-invalid");
+                  validity = false;
+              }
+             
+              password.classList.remove("is-invalid");	       
+              if ( (password.value == "") || !passwordregex.test(password.value) ) {
+                  password.classList.add("is-invalid");
+                  validity = false;
+              }
+              return(validity);
+
+};
+
+
+
+        // Create a fetch request to call the PHP file
+            async function postData(Emailvalue,passwordvalue){
+                   // Create an req object to hold the data you want to sent to server
+                   const requestData = {
+                      action: 'login',
+                      email: Emailvalue,
+                      password:passwordvalue,
+                   }; 
+                
+               //  try{
+                   const response=await fetch(phpFileUrl, {       
+                           method: 'POST', 
+                           body: JSON.stringify(requestData), // Pass the data as JSON
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                      });
+                      
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                   }
+                  
+                   const data = await response.json();
+                   
+                        const msg=document.getElementById('msg');
+                        
+                         if (data.message === 'no success'){
+                              msg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                           localStorage.setItem("FirstName", data.FirstName);
+                           localStorage.setItem("MemberID", data.MemberID);
+                           localStorage.setItem("MemberType", data.MemberType);
+                           if(data.MemberType==='Admin'){
+                               window.location.href = "Admin.html";
+                           }else{
+                               window.location.href = "member.html";
+                           }
+                         }
+                 }
+                               
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const isValid=await validateForm(event);
+   console.log(password.value);
+   if(isValid){
+     await postData(Email.value,password.value);
+   }
+ });  
+ </script> 
+</body>
+</html>

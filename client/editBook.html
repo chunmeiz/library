@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="main.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>ICTWEB skills project</title>
+  </head>
+<body>
+	<div class="container mx-auto"> 
+		<!-- add content here -->
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand" href="index.html"><img src="images/logo-small.png"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+            <li class="nav-item">
+							<a class="nav-link" href="Admin.html">Borrow/Return</a>
+						</li>  
+            <li class="nav-item">
+							<a class="nav-link" href="editBook.html" id="current">Manage books</a>
+						</li>                                                                           
+						<li class="nav-item">
+							<a class="nav-link" href="logout.php">Logout</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminProfile.html"><div id="profile"></div></a>
+						</li>
+					</ul>
+				</div>
+	</nav>
+  <div class="container features inputs" id="bookContainer">
+		<div class="row">
+			   <div class="col-lg-12 col-md-12 col-sm-12">
+				  <h1>Manage Books</h1>
+			    <div id="topmsg"></div> 
+          <hr>
+        </div>
+		</div>
+  
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <h3>Add a book</h3>
+        <!-- <button class="btnEnable" id="addBook">Add a book</button> -->
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">  
+      </div>
+   </div>
+   
+   <div class="row">
+     <div class="col-lg-4 col-md-4 col-sm-12">
+      <h5>You can search and add a book from openlibrary.</h5>
+      <p>or use the following form to add a book.</p>  
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12" >
+     <!-- Search input -->
+       <div style="display: flex; justify-content: center;">
+        <input type="text" id="search-box" placeholder="Search for more books in Openlibrary">
+        <button id = "searchButton">Search</button>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12"> 
+      
+    </div>
+  </div>	
+  <!-- Display search results here -->
+  <div id="results"></div> 	
+  
+
+  <div class="row addBookContainer">
+    <div class="col-lg-4 col-md-4 col-sm-12">
+      <img class="bookPhotoAdd" src="images/No-Image-Placeholder.png" alt="No-Image-Placeholder">
+      <h6>Upload a book photo</h6>
+      <form class="fileUploadFormAdd" action="bookAPI.php" method="POST" enctype="multipart/form-data">
+           <input type="hidden" name="BookID" class="BookIDAdd" value="">
+           <input type="file" name='choosefile' class="fileInput form-control">
+           <button class="btnEnable">Upload</button>
+           <div class="uploadMsgAdd"></div>  
+      </form>
+   </div>
+  
+  <div class="col-lg-4 col-md-4 col-sm-12">
+     <p><span>Title: </span><input type="text" class="bookTitleInputAdd"   value=""></p>
+     <p><span>Author: </span><input type="text" class="authorInputAdd"   value=""></p>
+     <p><span>Publisher: </span><input type="text" class="publisherInputAdd"   value=""></p>
+     <p><span>Language: </span>
+        <select class="languageInputAdd">
+                <option value="">Choose a language</option>
+                <option value="English">English</option>
+                <option value="Russian">Russian</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Mandarin">Mandarin</option>
+        </select>
+      </p>
+     <p><span>Category: </span>
+        <select class="categoryInputAdd">
+                <option value="">Choose a category</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Nonfiction">Nonfiction</option>
+                <option value="Reference">Reference</option>
+        </select>
+      </p>
+  </div> 
+  <div class="col-lg-4 col-md-4 col-sm-12">
+      <label>
+        <button class="btnEnable addButton">Submit</button>
+        </button>
+        <div class="addMsg"></div>  
+     </label>
+  </div>  
+</div> 
+<hr> 
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12">
+    <h3>Edit a book</h3>
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12">  
+  </div>
+</div>
+</div>  
+
+<footer class="page-footer">
+		<div class="container">
+	   <div class="row">
+	   <div class="col-lg-8 col-md-8 col-sm-12">
+	   <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+	   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+	   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+	   </div>
+	   <div class="col-lg-4 col-md-4 col-sm-12">
+		   <h6 class="text-uppercase font-weight-bold">Contact</h6>
+			   <p>16 Thomas Street, Ultimo, 2007
+			   <br>info@mywebsite.com
+			   <br>+ 01 234 567 88
+			   <br>+ 01 234 567 89</p>
+		 </div>
+		</div>
+	   </div>
+	   <div class="footer-copyright text-center">&copy; 2021 Copyright: MyWebsite.com</div>
+</footer>
+</div>
+
+<script>
+    
+  //Add a book photo
+  //add a submit event to fileUploadFormAdd
+const fileUploadFormAdd = document.querySelector(".fileUploadFormAdd");
+const fileInputAdd = document.querySelector(".fileInputAdd");
+const bookPhotoAdd = document.querySelector(".bookPhotoAdd");
+const uploadMsgAdd = document.querySelector(".uploadMsgAdd");
+const BookIDAdd = document.querySelector(".BookIDAdd");
+const bookTitleInputAdd = document.querySelector(".bookTitleInputAdd");
+const authorInputAdd = document.querySelector(".authorInputAdd");
+const publisherInputAdd = document.querySelector(".publisherInputAdd");
+const languageInputAdd = document.querySelector(".languageInputAdd");
+const categoryInputAdd = document.querySelector(".categoryInputAdd");
+const addMsg = document.querySelector(".addMsg");
+
+  fileUploadFormAdd.addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+        const formData = new FormData(this);
+        
+         // Check if files were selected
+       if (formData.get('choosefile').name === '') {
+        // No file has been selected, inform the user and don't submit the form
+          alert('Please choose a file to upload.');
+          return;
+         }
+       await uploadFile(formData,bookPhotoAdd,uploadMsgAdd,BookIDAdd);
+  
+   });
+
+  //Add a book information
+  const addButton = document.querySelector(".addButton");
+  addButton.addEventListener("click", async function(event) {
+              event.preventDefault();
+              const bookID = BookIDAdd.value;
+              console.log(bookID);
+              
+              updateBookData(bookID,bookTitleInputAdd.value,authorInputAdd.value,publisherInputAdd.value,languageInputAdd.value,categoryInputAdd.value, addMsg,BookIDAdd);		
+              
+            }); 
+  
+
+
+
+
+  const topmsg=document.getElementById('topmsg');
+
+  async function getAllBooks(){
+                      // Define the URL and parameters
+                      const phpFileUrl = 'bookAPI.php'; // API endpoint
+                       // Make the HTTP request using fetch
+                      fetch(phpFileUrl)
+                        .then(response => {
+                      console.log(response); 
+                          
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                          }
+                          return response.json();// Parse the response as JSON
+                        })
+                        .then(data => {
+                          console.log(data);
+                                         
+                         if (data.message === 'no success'){
+
+                              topmsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                          bookStatusArray=data.bookStatusArray;
+                          booksArray=data.booksArray;
+                          topmsg.innerHTML = `You can add/delete/edit any book.`;
+                          editBooks(booksArray,bookStatusArray);
+                         }
+						})
+                        .catch(error => {
+                          console.error('Fetch error: ', error);
+                        });
+                       }
+
+   
+//Page bookContainer loads all books information and binds click event with update/delete/upload file buttons.
+ async function editBooks(booksArray,bookStatusArray){
+    
+ const bookContainer = document.getElementById("bookContainer");
+    
+ await  booksArray.forEach((bookData, index) => {
+    const bookStatus = bookStatusArray[index];
+    // Create a container for each book 
+    const bookRow = document.createElement("div");
+    bookRow.classList.add("row");
+    //bookRow.classList.add("editBookContainer");
+    // bookRow.style.marginTop = "40px";
+    // <input type="submit" value="Upload">
+
+    // Create elements to display book details
+    bookRow.innerHTML = `
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <img class="bookPhoto" src="${bookData.PhotoName}" alt="${bookData.Title}">
+                        <h6>Upload a different photo</h6>
+                        <form class="fileUploadForm" action="bookAPI.php" method="POST" enctype="multipart/form-data">
+                             <input type="hidden" name="BookID" class="BookIDUpdate" value="${bookData.BookID}">
+                             <input type="file" name='choosefile' class="fileInput form-control">
+                             <button class="btnEnable">Upload</button>
+                             <div class="uploadMsg"></div>  
+                        </form>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                       <p><span>Title: </span><input type="text" class="bookTitleInput"   value="${bookData.Title}" disabled></p>
+                       <p><span>Author: </span><input type="text" class="authorInput"   value="${bookData.Author}" disabled></p>
+                       <p><span>Publisher: </span><input type="text" class="publisherInput"   value="${bookData.Publisher}" disabled></p>
+                       <p><span>Language: </span>
+                          <select class="languageInput" disabled>
+                                  <option value="${bookData.Language}">${bookData.Language}</option>
+                                  <option value="English">English</option>
+                                  <option value="Russian">Russian</option>
+                                  <option value="Japanese">Japanese</option>
+                                  <option value="Mandarin">Mandarin</option>
+                          </select>
+                        </p>
+                       <p><span>Category: </span>
+                          <select class="categoryInput" disabled>
+                                  <option value="${bookData.Category}">${bookData.Category}</option>
+                                  <option value="Fiction">Fiction</option>
+                                  <option value="Nonfiction">Nonfiction</option>
+                                  <option value="Reference">Reference</option>
+                          </select>
+                        </p>
+                        <p><span>Status: </span><input type="text" class="bookStatusInput" value="${bookStatus.Status}" disabled></p>
+                    </div> 
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                       <label>
+                          <button class="btnEnable editButton"  data-book-id="${bookData.BookID}">Edit</button>
+                          </button>
+                       </label>
+                       <label>
+                          <button class="btnEnable deleteButton"  data-book-id="${bookData.BookID}" data-status="${bookStatus.Status}">Delete</button>
+                          </button>
+                       </label>
+                       <div class="updateMsg"></div>  
+                       <div class="deleteMsg"></div> 
+                    </div>             
+        `;
+      bookContainer.appendChild(bookRow);
+   });
+
+   const editButtons = document.querySelectorAll(".editButton");
+   const deleteButtons = document.querySelectorAll(".deleteButton");
+   const bookPhotos = document.querySelectorAll(".bookPhoto");
+   const bookTitleInputs = document.querySelectorAll(".bookTitleInput");
+   const authorInputs = document.querySelectorAll(".authorInput");
+   const publisherInputs = document.querySelectorAll(".publisherInput");
+   const languageInputs = document.querySelectorAll(".languageInput");
+   const categoryInputs = document.querySelectorAll(".categoryInput");
+   const bookStatusInputs = document.querySelectorAll(".bookStatusInput");
+   const BookIDUpdates = document.querySelectorAll(".BookIDUpdate");
+   const updateMsgs = document.querySelectorAll(".updateMsg");
+   const uploadMsgs = document.querySelectorAll(".uploadMsg");
+   const deleteMsgs = document.querySelectorAll(".deleteMsg");
+
+//add a click event to every Edit button
+  await  editButtons.forEach((editButton, index) => {
+
+          editButton.addEventListener("click", async function(event) {
+              event.preventDefault();
+              // const bookID = editButton.getAttribute("data-book-id");
+              const bookID = BookIDUpdates[index].value;
+              console.log(index);
+              console.log(editButton.textContent);
+              if(editButton.textContent === "Edit"){
+                 editButton.textContent = "Confirm";
+                 bookTitleInputs[index].disabled = false;
+                 authorInputs[index].disabled = false;
+                 publisherInputs[index].disabled = false;
+                 languageInputs[index].disabled = false;
+                 categoryInputs[index].disabled = false;
+                 updateMsgs[index].style.display = 'none';
+                //  bookStatusInputs[index].disabled = false;
+              }else{
+                editButton.textContent = "Edit";
+                 bookTitleInputs[index].disabled = true;
+                 authorInputs[index].disabled = true;
+                 publisherInputs[index].disabled = true;
+                 languageInputs[index].disabled = true;
+                 categoryInputs[index].disabled = true;
+                 updateMsgs[index].style.display = 'block';
+              updateBookData(bookID,bookTitleInputs[index].value,authorInputs[index].value,publisherInputs[index].value,languageInputs[index].value,categoryInputs[index].value, updateMsgs[index],BookIDUpdates[index]);		
+              }
+            }); 
+
+          deleteButtons[index].addEventListener("click", async function(event) {
+              event.preventDefault();
+              var confirmation= confirm(`Are you sure you want to delete the book?`);
+              
+              if (confirmation){
+                  const bookID = deleteButtons[index].getAttribute("data-book-id");
+                  const bookStatus = deleteButtons[index].getAttribute("data-status");
+                  deleteBookData(bookID,bookStatus,deleteMsgs[index]);	
+              }	
+           });   
+       });
+
+
+//add a submit event to every fileUploadForm
+const fileUploadForms = document.querySelectorAll(".fileUploadForm");
+// const fileInputs = document.querySelectorAll(".fileInput");
+await fileUploadForms.forEach((fileUploadForm,index) => {
+      fileUploadForm.addEventListener('submit', async function(event) {
+        event.preventDefault(); 
+        const formData = new FormData(this);
+        
+         // Check if files were selected
+       if (formData.get('choosefile').name === '') {
+        // No file has been selected, inform the user and don't submit the form
+          alert('Please choose a file to upload.');
+          return;
+         }
+       await uploadFile(formData,bookPhotos[index],uploadMsgs[index],BookIDUpdates[index]);
+  
+   });
+});
+}; 
+
+
+//Create a fetch request to upload a file
+async function uploadFile(formData,bookPhoto,uploadMsg,BookIDUpdate){
+  await fetch('bookAPI.php', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json()) 
+    .then(data => {
+        console.log(data);
+        if(data.message === 'success'){
+           bookPhoto.src = `${data.PhotoName}`;
+           uploadMsg.innerHTML =`<p>${data.text}</p>`;
+           BookIDUpdate.value = data.BookID;
+          //  location.reload();
+        }else{
+           uploadMsg.innerHTML =`<p>${data.text}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('File upload failed:', error);
+    });
+  }
+
+  
+// Create a fetch request to delete book data
+async function deleteBookData(BookID,bookStatus,deleteMsg){
+  const requestData = {
+                      action:"deleteBook",
+                      BookID:BookID,
+                      bookStatus:bookStatus
+                   }; 
+  
+  // Encode the data as query parameters
+   const queryParams = new URLSearchParams(requestData);
+
+  // Create the URL with the query parameters
+   const url = `bookAPI.php?${queryParams.toString()}`;
+   console.log(url);
+   
+
+  await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => 
+      response.json()) 
+    .then(data => {
+        console.log(data);
+        if(data.message === 'success'){
+          //  location.reload();
+          deleteMsg.innerHTML =`<p>${data.text}</p>`;
+        }else{
+           deleteMsg.innerHTML =`<p>${data.text}</p>`;
+        }
+    })
+    .catch(error => {
+        console.error('File delete failed:', error);
+    }); 
+}
+
+
+// Create a fetch request to update book data
+async function updateBookData(BookID,Title,Author,Publisher,Language,Category,updateMsg,BookIDUpdate){
+                   // Create an req object to hold the data you want to sent to server
+                   const requestData = {
+                      action: 'updateBook',
+                      BookID:BookID,
+                      Title:Title,
+                      Author:Author,
+                      Publisher:Publisher,
+                      Language:Language,
+                      Category:Category
+                   }; 
+                   const phpFileUrl = 'bookAPI.php'; // API endpoint
+                   console.log(requestData);
+               //  try{
+                   const response=await fetch(phpFileUrl, {       
+                           method: 'PUT', 
+                           body: JSON.stringify(requestData), // Pass the data as JSON
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                      });
+                      console.log(response); 
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                   }
+                   
+                   const data = await response.json();
+                   console.log(data); 
+                   if(data.message === 'success'){
+                       updateMsg.innerHTML =`<p>${data.text}</p>`;
+                       BookIDUpdate.value = data.BookID;
+                      //  location.reload();
+                      
+
+                    }else{
+                       updateMsg.innerHTML =`<p>${data.text}</p>`;
+                    }     
+                    
+				}
+
+   // ------------------------------------------------------------------------------
+  // Get all books from Openlibrary API
+  // ------------------------------------------------------------------------------
+  const searchBox = document.getElementById('search-box');
+        const resultsDiv = document.getElementById('results');
+        const searchButton = document.getElementById('searchButton');
+
+        searchButton.addEventListener('click', ()=>{searchBooks();});
+
+        async function searchBooks() {
+            resultsDiv.innerHTML = ''; // Clear previous results
+            const query = searchBox.value;
+
+            if (query.trim() === '') {
+                return;
+            }
+
+            try {
+                const response = await fetch(`https://openlibrary.org/search.json?title=${encodeURIComponent(query)}&mediatype=texts`);
+                const data = await response.json();
+                const docs = data.docs;
+
+                if (docs && docs.length > 0) {
+                await docs.forEach(book => {
+                        console.log(book);
+                        if (book.cover_i) {
+                        const title = book.title;
+                        const author = book.author_name ? book.author_name.join(', ') : 'Unknown Author';
+                        const publisher = book.publisher ? book.publisher[0]:'Unknown Publisher';
+                        const language = book.language ? book.language[0]:'Unknown Language';;
+                        const coverUrl = `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`;
+
+                        const bookInfo = document.createElement('div');
+                        bookInfo.classList.add('book-info');
+                        bookInfo.innerHTML = `
+                        <div class="row">
+                             <div class="col-lg-4 col-md-4 col-sm-12">
+                                <input type="hidden" name="BookID" class="BookIDAddOpen" value="">
+                                <img class="bookPhotoUrl" src="${coverUrl}" alt="${title} cover">
+                             </div>
+                             <div class="col-lg-4 col-md-4 col-sm-12">
+                               <h2 class="feature-title">Title: <span class="bookTitleInputOpen">${title}</span></h2>
+                               <p>Author: <span class="authorInputOpen">${author}</span></p>
+                               <p>Publisher: <span class="publisherInputOpen" >${publisher}</span></p>
+                             </div>
+                             <div class="col-lg-4 col-md-4 col-sm-12">
+                               <label>
+                                  <button class="btnEnable addButtonOpen">Add</button>
+                               </label>
+                               <div class="addMsgOpen"></div>
+                             </div> 
+                       </div>           
+                        `;
+                      resultsDiv.appendChild(bookInfo);
+                         
+                      }
+                    });
+                    const addButtonOpens = document.querySelectorAll(".addButtonOpen");
+                    const bookTitleInputOpens = document.querySelectorAll(".bookTitleInputOpen");
+                    const authorInputOpens = document.querySelectorAll(".authorInputOpen");
+                    const publisherInputOpens = document.querySelectorAll(".publisherInputOpen");
+                    const addMsgOpens = document.querySelectorAll(".addMsgOpen");
+                    const BookIDAddOpens = document.querySelectorAll(".BookIDAddOpen");
+                    const bookPhotoUrls = document.querySelectorAll(".bookPhotoUrl");
+
+                    addButtonOpens.forEach((addButtonOpen,index) => {
+                        addButtonOpen.addEventListener("click", async function(event) {
+                          
+                           event.preventDefault();
+                           var bookID = '';
+                           const bookTitleOpen = bookTitleInputOpens[index].textContent;
+                           const authorOpen = authorInputOpens[index].textContent;
+                           const publisherOpen = publisherInputOpens[index].textContent;
+                           const languageOpen = 'English';
+                           const categoryOpen = 'Fiction';
+                         await updateBookData(bookID,bookTitleOpen,authorOpen,publisherOpen,languageOpen,categoryOpen, addMsgOpens[index],BookIDAddOpens[index]);
+                          bookID = BookIDAddOpens[index].value;
+                          console.log(bookID);
+                          updateBookUrl(bookID,bookPhotoUrls[index].src, addMsgOpens[index]);
+                          })
+                        });
+                } else {
+                    resultsDiv.innerHTML = '<p>No results found</p>';
+                }
+            } catch (error) {
+                console.error(error);
+                resultsDiv.innerHTML = '<p>An error occurred while fetching data</p>';
+            }
+          }
+
+// Create a fetch request to update book URL
+async function updateBookUrl(BookID,bookPhotoUrl,addMsgOpens){
+                   // Create an req object to hold the data you want to sent to server
+                   const requestData = {
+                      action: 'updateBookUrl',
+                      BookID:BookID,
+                      bookPhotoUrl:bookPhotoUrl
+                   }; 
+                   const phpFileUrl = 'bookAPI.php'; // API endpoint
+                   console.log(requestData);
+               //  try{
+                   const response=await fetch(phpFileUrl, {       
+                           method: 'PUT', 
+                           body: JSON.stringify(requestData), // Pass the data as JSON
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                      });
+                      console.log(response); 
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                   }
+                   
+                   const data = await response.json();
+                   console.log(data); 
+                   if(data.message === 'success'){
+                       addMsgOpens.innerHTML =`<p>${data.text}</p>`;
+                       //BookIDUpdate.value = data.BookID;
+                      //  location.reload();
+                    }else{
+                      addMsgOpens.innerHTML =`<p>${data.text}</p>`;
+                    }     
+				}
+         
+          
+//Page loaded
+  document.addEventListener("DOMContentLoaded", async function(event) {
+          event.preventDefault();
+          loginFirstName=localStorage.getItem("FirstName");
+          MemberID=localStorage.getItem("MemberID");
+          if (MemberID == null){
+            window.location.href = "login.html";
+          }else{
+          profile.innerHTML =`<p>Hi,${loginFirstName}</p><p>Your MemberID:${MemberID}</p>`;
+          await getAllBooks();
+          }
+   }); 
+
+
+</script>
+</body>
+</html>

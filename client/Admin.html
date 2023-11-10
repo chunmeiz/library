@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="main.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>ICTWEB skills project</title>
+  </head>
+  <body>
+	
+	<div class="container mx-auto"> 
+		<!-- add content here -->
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand" href="index.html"><img src="images/logo-small.png"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="Admin.html" id="current">Borrow/Return</a>
+						</li> 
+            <li class="nav-item">
+							<a class="nav-link" href="editBook.html">Manage books</a>
+						</li>                                                                          
+						<li class="nav-item">
+							<a class="nav-link" href="logout.php">Logout</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="adminProfile.html"><div id="profile"></div></a>
+						</li>
+					</ul>
+				</div>
+		</nav>
+  <div class="container features inputs" id="bookContainer">
+	  <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+         <h1>Borrow & Return</h1>
+         <div id="topmsg"></div> 
+         <hr>
+       </div>
+    </div>
+   <div class="row">
+     <div class="col-lg-4 col-md-4 col-sm-12">
+      <h5>You can search a book to borrow or return.</h5>
+      <p>Input any words you want.</p>  
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12" style="display: flex; flex-direction: column;">
+      <!-- Search input -->
+        <div style="display: flex; justify-content: center;">
+        <input type="text" id="search-box" placeholder="Search for any a book">
+        <button id = "searchButton">Search</button></div>
+        <div id ="searchmsg"></div>
+     </div>
+     <div class="col-lg-4 col-md-4 col-sm-12"> 
+     </div>
+   </div>	
+   <!-- Display search results here -->
+   <div id="results"></div> 
+   <hr>		   
+</div>
+
+<footer class="page-footer">
+		<div class="container">
+	   <div class="row">
+	   <div class="col-lg-8 col-md-8 col-sm-12">
+	   <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+	   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+	   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+	   </div>
+	   <div class="col-lg-4 col-md-4 col-sm-12">
+		   <h6 class="text-uppercase font-weight-bold">Contact</h6>
+			   <p>16 Thomas Street, Ultimo, 2007
+			   <br>info@mywebsite.com
+			   <br>+ 01 234 567 88
+			   <br>+ 01 234 567 89</p>
+		 </div>
+		</div>
+	   </div>
+	   <div class="footer-copyright text-center">&copy; 2021 Copyright: MyWebsite.com</div>
+	   </footer>
+</div>
+	<script>
+
+     const topmsg=document.getElementById('topmsg');
+     const bookContainer = document.getElementById("bookContainer");
+
+     async function getAllBooks(){
+                      // Define the URL and parameters
+                      const phpFileUrl = 'bookAPI.php'; // API endpoint
+                       // Make the HTTP request using fetch
+                      fetch(phpFileUrl)
+                        .then(response => {
+                      console.log(response); 
+                          
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                          }
+                          return response.json();// Parse the response as JSON
+                        })
+                        .then(data => {
+                          console.log(data);
+                                         
+                         if (data.message === 'no success'){
+
+                              topmsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                          bookStatusArray=data.bookStatusArray;
+                          booksArray=data.booksArray;
+                          topmsg.innerHTML = `<p>${data.text}</p>`;
+                          renderBooks(bookStatusArray,booksArray,bookContainer);
+                         }
+						})
+                        .catch(error => {
+                          console.error('Fetch error: ', error);
+                        });
+                       }
+
+  
+
+  async function renderBooks(bookStatusArray,booksArray,bookContainer){
+       
+        // const bookContainer = document.getElementById("bookContainer");
+        
+     await  bookStatusArray.forEach((bookStatus, index) => {
+            
+        const bookData = booksArray[index]; // Get the corresponding book data
+    
+        // Create a container for each book status
+        const bookRow= document.createElement("div");
+        bookRow.classList.add("row");
+        bookRow.style.marginTop = "40px";
+
+        // use a simple conditional statement to conditionally display 
+		//either the Member's ID or an input field based on the value of bookStatus.MemberID
+		const memberIdContent = bookStatus.MemberID ? bookStatus.MemberID : ``;
+
+        // Create elements to display book and status details
+        bookRow.innerHTML = `
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                            <img src="${bookData.PhotoName}" alt="${bookData.Title}">
+                         </div>
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                           <h2 class="feature-title"><span>Title: </span>${bookData.Title}</h2>
+                           <p><span>Author: </span>${bookData.Author}</p>
+                           <p><span>Publisher: </span>${bookData.Publisher}</p>
+                           <p><span>Language: </span>${bookData.Language}</p>
+                           <p><span>Category: </span>${bookData.Category}</p>
+                           <p><span>Status: </span><span class="bookStatusUpdate">${bookStatus.Status}</span></p>
+                           
+                         </div> 
+                         <div class="col-lg-4 col-md-4 col-sm-12">
+                            
+							             <p class="memberContent"><span>Member's ID: </span><span class="memberIDUpdate"> ${memberIdContent}</span</p>
+                           <p><input type="text" class="memberIdInput" placeholder="Enter Member ID" value=""></p>
+                           <label>
+                             <button class="btnEnable borrowButton"  data-book-id="${bookData.BookID}" data-status="${bookStatus.Status}">Borrow</button>
+                           </button>
+                           </label>
+                           <label>
+                             <button class="btnReturn returnButton"  data-book-id="${bookData.BookID}" data-status="${bookStatus.Status}" >Return</button>
+                           </button>
+                           </label>
+                           <div class="borrowReturnMsg"></div>
+                         </div>             
+            `;
+     bookContainer.appendChild(bookRow);
+   });
+
+   const borrowButtons = document.querySelectorAll(".borrowButton");
+   const returnButtons = document.querySelectorAll(".returnButton");
+   const memberIdInputs = document.querySelectorAll(".memberIdInput");
+   const borrowReturnMsgs = document.querySelectorAll(".borrowReturnMsg");
+   const bookStatusUpdates = document.querySelectorAll(".bookStatusUpdate");
+   const memberContents = document.querySelectorAll(".memberContent");
+   const memberIDUpdates = document.querySelectorAll(".memberIDUpdate");
+        bookStatusArray.forEach((bookStatus, index) => {
+          const status = bookStatusUpdates[index].textContent;
+        if (status === 'Available') {
+                returnButtons[index].style.display = 'none';
+                memberContents[index].style.display = 'none';
+                
+            }else if(status === 'Onloan') {
+                borrowButtons[index].style.display = 'none';
+				        memberIdInputs[index].style.display = 'none';
+               
+            } 
+        })
+    
+      borrowButtons.forEach((borrowButton,index) => {
+        borrowButton.addEventListener("click", async function(event) {
+            event.preventDefault();
+            const bookID = borrowButton.getAttribute("data-book-id");
+            // const status = borrowButton.getAttribute("data-status");
+            
+			      const status = bookStatusUpdates[index].textContent;
+			if (memberIdInputs[index].value !== ''){
+				const MemberID = parseInt(memberIdInputs[index].value);
+        const borrowReturnMsg=borrowReturnMsgs[index];
+                await postData(bookID, status, MemberID, borrowReturnMsg, borrowButtons[index], returnButtons[index], memberIdInputs[index], bookStatusUpdates[index], memberIDUpdates[index],memberContents[index]);
+			}else{
+                alert('Member ID can not be empty.');
+			}
+			
+      }); 
+    }); 
+	
+    returnButtons.forEach((returnButton,index) => {
+      returnButton.addEventListener("click", async function(event) {
+        event.preventDefault();
+        const bookID = returnButton.getAttribute("data-book-id");
+        // const status = returnButton.getAttribute("data-status");
+        const status = bookStatusUpdates[index].textContent;
+		    // MemberID = bookStatusArray[index].MemberID;
+        const MemberID = parseInt(memberIDUpdates[index].textContent);
+        console.log(MemberID);
+        const borrowReturnMsg=borrowReturnMsgs[index];
+        await postData(bookID, status, MemberID,borrowReturnMsg, borrowButtons[index], returnButtons[index], memberIdInputs[index], bookStatusUpdates[index], memberIDUpdates[index],memberContents[index]);
+      }); 
+    });  
+
+};    
+
+// Create a fetch request to call the PHP file
+async function postData(BookID,Status,MemberID,borrowReturnMsg, borrowButton, returnButton, memberIdInput,bookStatusUpdate, memberIDUpdate, memberContent){
+                   // Create an req object to hold the data you want to sent to server
+                   const requestData = {
+                      action: 'updateBookStatus',
+                      BookID:BookID,
+                      Status:Status,
+                      MemberID:MemberID
+                   }; 
+                   const phpFileUrl = 'bookAPI.php'; // API endpoint
+                   console.log(requestData);
+               //  try{
+                   const response=await fetch(phpFileUrl, {       
+                           method: 'PUT', 
+                           body: JSON.stringify(requestData), // Pass the data as JSON
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                      });
+                      console.log(response); 
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                   }
+                   
+                   const data = await response.json();
+                     console.log(data);   
+						     if (data.message === 'error'){
+                      borrowReturnMsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                            //  location.reload();
+                            borrowReturnMsg.innerHTML = `<p>${data.text}</p>`;
+                            bookStatusUpdate.textContent = data.bookStatus;
+                            if (data.bookStatus === 'Available') {
+                                 returnButton.style.display = 'none';
+                                 memberContent.style.display = 'none';
+                                 borrowButton.style.display = 'block';
+                                 memberIdInput.style.display = 'block';
+                                 memberIdInput.value = '';
+				                         
+                            }else if(data.bookStatus === 'Onloan') {
+                                 returnButton.style.display = 'block';
+                                 memberContent.style.display = 'block';
+                                 memberIDUpdate.textContent = data.MemberID;
+                                 borrowButton.style.display = 'none';
+				                         memberIdInput.style.display = 'none';
+                             } 
+                        
+                         }else{
+                            borrowReturnMsg.innerHTML = `<p>${data.text}</p>`;
+                         }
+    }   
+    
+        const searchBox = document.getElementById('search-box');
+        const resultsDiv = document.getElementById('results');
+        const searchButton = document.getElementById('searchButton');
+        const searchmsg = document.getElementById('searchmsg');
+        
+        searchButton.addEventListener('click', () => {
+             const searchTerm = searchBox.value;
+             console.log(searchBox.value);
+             searchBook(searchTerm, searchmsg);
+            });
+
+    async function searchBook(searchTerm,searchmsg){
+                      // Define the URL and parameters
+                      const phpFileUrl = 'bookAPI.php'; // API endpoint
+                      const params = {
+                        param1:"searchBooks", 
+                        param2:searchTerm,
+                      };
+
+                      // Convert the parameters into a query string
+                      const queryString = Object.keys(params)
+                        .map(key => `${key}=${encodeURIComponent(params[key])}`)
+                        .join('&');
+                  
+                      // Append the query string to the URL
+                      const urlWithParams = `${phpFileUrl}?${queryString}`;
+                     console.log(urlWithParams);
+
+                      // Make the HTTP request using fetch
+                      fetch(urlWithParams)
+                        .then(response => {
+                      console.log(response); 
+                          
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                          }
+                          return response.json();// Parse the response as JSON
+                        })
+                        .then(data => {
+                          console.log(data);
+                                         
+                         if (data.message === 'error'){
+
+                          searchmsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                          searchmsg.innerHTML = `<p>${data.text}</p>`;
+                          searchedBooks = data.books;
+                          searchedBookStatusArray = data.bookStatus;
+                          renderBooks(searchedBookStatusArray,searchedBooks,resultsDiv);
+                         }
+
+                        })
+                        .catch(error => {
+                          console.error('Fetch error: ', error);
+                        });
+                       }
+
+
+  loginFirstName=localStorage.getItem("FirstName");
+  MemberID=localStorage.getItem("MemberID");
+
+  document.addEventListener("DOMContentLoaded", async function(event) {
+          event.preventDefault();
+          MemberID=localStorage.getItem("MemberID");
+          if (MemberID == null){
+            window.location.href = "login.html";
+          }else{
+          profile.innerHTML =`<p>Hi,${loginFirstName}</p><p>Your MemberID:${MemberID}</p>`;
+          await getAllBooks();
+          }
+   }); 
+  
+   </script>
+
+   </body>
+   </html>    

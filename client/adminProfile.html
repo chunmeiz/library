@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="main.css">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <title>ICTWEB skills project</title>
+  </head>
+
+  <body>
+	<div class="container mx-auto"> 
+		<!-- add content here -->
+		<nav class="navbar navbar-expand-md navbar-light">
+			<a class="navbar-brand" href="index.html"><img src="images/logo-small.png"></a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+            <li class="nav-item">
+							<a class="nav-link" href="Admin.html">Borrow/Return</a>
+						</li>  
+            <li class="nav-item">
+							<a class="nav-link" href="editBook.html">Manage Books</a>
+						</li>  
+            <li class="nav-item">
+							<a class="nav-link" href="logout.php">Logout</a>
+						</li>
+            <li class="nav-item">
+							<a class="nav-link" href="adminProfile.html" id="current"><div id="profile"></div></a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+            <div class="container features inputs">
+                <div class="row">
+                    <div class="container bootstrap snippets bootdey">
+                        <h1>Edit User Profile</h1>
+                        <div id="topmsg"></div>
+                          <hr>
+                        <div class="row">
+                          <!-- left column -->
+                          <div class="col-md-3">
+                            <div class="text-center">
+                              <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="avatar img-circle img-thumbnail" alt="avatar">
+                              <h6>Upload a different photo...</h6>
+                              <input type="file" class="form-control">
+                            </div>
+                          </div>
+                          
+                          <!-- edit form column -->
+                          <div class="col-md-9 personal-info">
+                      
+                            <h3>Personal info</h3>
+                              
+                            <form id="profileUpdateForm" class="form-horizontal" role="form" action="#">
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">First name:</label>
+                                <div class="col-lg-8">
+                                  <input type="text" class="form-control form-control-lg" id="FirstName" name="FirstName" autocomplete="given-name" value="">
+                                  <div class="invalid-feedback">
+                                    <p>A valid Firstname is required!<br>
+                                    First names contain valid alpha characters only.<br>
+                                    First names are no more than 20 characters in length.</p>
+                                  </div>	
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Last name:</label>
+                                <div class="col-lg-8">
+                                  <input type="text" class="form-control form-control-lg" id="LastName" name="LastName" autocomplete="family-name"  value="">
+                                  <div class="invalid-feedback">
+                                    A valid Lastname is required!
+                                  </div>	
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Email:</label>
+                                <div class="col-lg-8">
+                                  <input type="email" class="form-control form-control-lg" id="Email"  name="Email" autocomplete="email"  value="">
+                                  <div class="invalid-feedback">
+                                    A valid email address is required!
+                                  </div>
+                                  <div id="checkEmail"></div>
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Password:</label>
+                                <div class="col-lg-8">
+                                  <input type="password" class="form-control form-control-lg" id="password" name="password" autocomplete="new-password" placeholder="Reset password here" value="">
+                                  <div class="invalid-feedback">
+                                    <p>A valid password is required!<br>
+                                        At least one digit<br>
+                                        At least one lowercase letter<br>
+                                        At least one uppercase letter<br>
+                                        At least one special character (not a letter or a digit)<br>
+                                        No whitespace characters<br>
+                                        A minimum length of 8 characters and a maximum length of 15 characters<br></p>
+                                </div>		
+                                </div>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-lg-3 control-label">Re-Password:</label>
+                                <div class="col-lg-8">
+                                  <input type="password" class="form-control form-control-lg" id="re_password" name="newPassword" autocomplete="new-password" placeholder="Reset password again" value="">
+                                  <div class="invalid-feedback">
+                                    Entering the same password twice is required!
+                                  </div>	
+                                </div>
+                              </div>
+                              <button type="submit" name="btnsubmit"  class="btn btn-primary">Update Profile</button>
+                            </form>
+                            <div id="updateProfileMsg"></div>
+                          </div>
+                      </div>
+                    </div>
+                    <hr>
+                        
+                </div>
+            </div>
+            <footer class="page-footer">
+                <div class="container">
+               <div class="row">
+               <div class="col-lg-8 col-md-8 col-sm-12">
+               <h6 class="text-uppercase font-weight-bold">Additional Information</h6>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque interdum quam odio, quis placerat ante luctus eu. Sed aliquet dolor id sapien rutrum, id vulputate quam iaculis.</p>
+               </div>
+               <div class="col-lg-4 col-md-4 col-sm-12">
+                   <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                       <p>16 Thomas Street, Ultimo, 2007
+                       <br>info@mywebsite.com
+                       <br>+ 01 234 567 88
+                       <br>+ 01 234 567 89</p>
+                 </div>
+                </div>
+               </div>
+               <div class="footer-copyright text-center">&copy; 2021 Copyright: MyWebsite.com</div>
+        </footer>           
+    </div>
+<!-- javascript for custom form validation -->
+    <script>
+         const form=document.getElementById("profileUpdateForm");
+         var FirstName = document.getElementById("FirstName");
+         var LastName = document.getElementById("LastName");
+         var Email = document.getElementById("Email");
+         var password = document.getElementById("password");
+         var repassword = document.getElementById("re_password");
+         var PasswordHash = "";
+
+         function validateForm(event){
+          
+                   var validity = true;
+                  
+
+                   var nameregex = /^[A-Za-z]{1,20}$/;    
+                   var emailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                   var passwordregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+                   
+                   FirstName.classList.remove("is-invalid");		
+                   
+                   if ( (FirstName.value == "") || !nameregex.test(FirstName.value) ) {
+                       FirstName.classList.add("is-invalid");
+                       validity = false;
+                       
+                   }
+                   
+            
+                   LastName.classList.remove("is-invalid");			
+                   if ( (LastName.value == "") || !nameregex.test(LastName.value) ) {
+                       LastName.classList.add("is-invalid");
+                       validity = false;
+                    
+                   }   
+                    
+                   Email = document.getElementById("Email");
+                   Email.classList.remove("is-invalid");			
+                   if ( (Email.value == "") || !emailregex.test(Email.value) ) {
+                       Email.classList.add("is-invalid");
+                       validity = false;
+                   }
+                  
+                  if (!PasswordHash){ 
+                    password.classList.remove("is-invalid");	
+                         
+                     if ( (password.value == "") || !passwordregex.test(password.value) ) {
+                       password.classList.add("is-invalid");
+                       validity = false;
+                      }
+                   }
+                 
+                   if (!PasswordHash){  
+                   repassword.classList.remove("is-invalid");		
+                   if ( !(repassword.value === password.value) ) {
+                       repassword.classList.add("is-invalid");
+                       validity = false;
+                   } 
+                  }           
+                 return(validity);
+
+                 };
+
+                var orgEmail = '';
+                const topmsg=document.getElementById('topmsg');
+                const updateProfileMsg=document.getElementById('updateProfileMsg');
+                
+
+                async function getData(MemberID){
+                      // Define the URL and parameters
+                      const phpFileUrl = 'profile.php'; // API endpoint
+                      const params = {
+                        param1: MemberID,
+                      };
+
+                      // Convert the parameters into a query string
+                      const queryString = Object.keys(params)
+                        .map(key => `${key}=${encodeURIComponent(params[key])}`);
+                  
+
+                      // Append the query string to the URL
+                      const urlWithParams = `${phpFileUrl}?${queryString}`;
+                     console.log(urlWithParams);
+
+                      // Make the HTTP request using fetch
+                      fetch(urlWithParams)
+                        .then(response => {
+                      console.log(response); 
+                          
+                          if (!response.ok) {
+                            throw new Error(`HTTP error! Status: ${response.status}`);
+                          }
+                          return response.json();// Parse the response as JSON
+                        })
+                       
+                        .then(data => {
+                          console.log(data);
+                                         
+                         if (data.message === 'no success'){
+
+                              topmsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                              topmsg.innerHTML = `<p>${data.text}</p>`;
+                              FirstName.value=data.FirstName;
+                              LastName.value=data.LastName; 
+                              Email.value = data.Email;
+                              PasswordHash = data.PasswordHash;
+                              orgEmail = Email.value;
+                              console.log(orgEmail);
+                         }
+
+                        })
+                        .catch(error => {
+                          console.error('Fetch error: ', error);
+                        });
+                       }
+
+         // Create a fetch request to call the PHP file
+         async function postData(FirstNamevalue,LastNamevalue,Emailvalue,passwordvalue,PasswordHash,MemberID,orgEmail){
+                   // Create an req object to hold the data you want to sent to server
+                   const requestData = {
+                      action: 'update',
+                      first_name: FirstNamevalue,
+                      last_name: LastNamevalue,
+                      MemberID: MemberID,
+                      Email: Emailvalue,
+                      password: passwordvalue,
+                      PasswordHash: PasswordHash,
+                      orgEmail:orgEmail
+                      
+                   }; 
+                   const phpFileUrl = 'profile.php'; // API endpoint
+                   console.log(requestData);
+               //  try{
+                   const response=await fetch(phpFileUrl, {       
+                           method: 'PUT', 
+                           body: JSON.stringify(requestData), // Pass the data as JSON
+                           headers: {
+                               'Content-Type': 'application/json',
+                           },
+                      });
+                      console.log(response); 
+                 if (!response.ok) {
+                     throw new Error('Network response was not ok');
+                   }
+                  
+                   const data = await response.json();
+                      
+                        const checkEmail=document.getElementById('checkEmail');
+                        
+                         if (data.message === 'no success'){
+                              
+                              checkEmail.innerHTML = `<p>${data.text}</p>`;
+                              updateProfileMsg.innerHTML = `<p>${data.text}</p>`;
+                            
+                         } else if(data.message === 'success'){
+                           checkEmail.innerHTML = "";
+                           localStorage.setItem("FirstName", data.FirstName);
+                           updateProfileMsg.innerHTML =`<p>${data.text}</p>`;
+                        //    window.location.href = "Admin.html";
+                        
+                         }else{
+                            updateProfileMsg.innerHTML =`<p>${data.text}</p>`;
+                         }
+                         
+                       }                      
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+  
+  event.preventDefault();
+  loginFirstName=localStorage.getItem("FirstName");
+  MemberID=localStorage.getItem("MemberID");
+  if (MemberID == null){
+            window.location.href = "login.html";
+          }else{
+  profile.innerHTML =`<p>Hi,${loginFirstName}</p><p>Your MemberID:${MemberID}</p>`;
+  console.log(MemberID);
+  await getData(MemberID);
+          }
+   }
+);   
+
+password.addEventListener("change",()=>{PasswordHash='';});
+repassword.addEventListener("change",()=>{PasswordHash='';});
+
+form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const isValid=await validateForm(event);
+    if(isValid){
+       await postData(FirstName.value,LastName.value,Email.value,password.value,PasswordHash,MemberID,orgEmail);
+   }
+ });  
+ </script> 
+</body>
+</html>
